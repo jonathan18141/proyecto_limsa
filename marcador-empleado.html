@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>B&B LIMSA S.A.C. - Marcador</title>
+    <style>
+        body { font-family: Arial; background:#eef2f5; margin:0; padding:50px; display:flex; justify-content:center; }
+        .tarjeta { background:white; padding:40px; border-radius:12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); width:100%; max-width:450px; text-align:center; }
+        h1 { color:#1f4e78; margin-bottom: 5px; }
+        p { color: #666; margin-bottom: 25px; }
+        input { width:100%; padding:15px; font-size: 18px; text-align:center; border:2px solid #bcd0e2; border-radius:8px; box-sizing:border-box; margin-bottom: 20px; }
+        button { width:100%; padding:15px; background:#2e75b6; color:white; font-size:18px; border:none; border-radius:8px; cursor:pointer; font-weight:bold; }
+        button:hover { background:#1f4e78; }
+        .exito { background:#d4edda; color:#155724; padding:12px; border-radius:6px; margin-bottom:20px; font-size:14px; }
+        .error { background:#f8d7da; color:#721c24; padding:12px; border-radius:6px; margin-bottom:20px; font-size:14px; }
+        .enlace-admin { display:block; margin-top:25px; color:#2e75b6; text-decoration:none; font-size:13px; }
+    </style>
+</head>
+<body>
+<div class="tarjeta">
+    <h1>B&B LIMSA S.A.C.</h1>
+    <p>Marcador de Asistencia - Planta</p>
+
+    <!-- Notificaciones -->
+    <div th:if="${mensaje}" class="exito" th:text="${mensaje}"></div>
+    <div th:if="${error}" class="error" th:text="${error}"></div>
+
+    <form th:action="@{/marcador/marcar}" method="post">
+        <input type="text" name="dni" placeholder="Ingrese su DNI" maxlength="8" required autofocus autocomplete="off">
+        <button type="submit">MARCAR ASISTENCIA</button>
+    </form>
+
+    <a class="enlace-admin" th:href="@{/reporte}"> Panel de Administración / Reportes →</a>
+</div>
+</body>
+</html>

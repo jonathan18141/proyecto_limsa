@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Proceso de Asistencia - B&B LIMSA S.A.C.</title>
+    <style>
+        body { font-family: Arial; background:#f4f7fb; margin:30px; }
+        .contenedor { max-width:1000px; margin:auto; background:white; padding:25px; border-radius:12px; }
+        h1 { color:#1f4e78; }
+        .dato { color:#2e75b6; font-weight:bold; }
+        table { width:100%; border-collapse:collapse; margin-top: 20px; }
+        th { background:#2e75b6; color:white; padding:10px; text-align:left; }
+        td { border:1px solid #ccd6e0; padding:10px; }
+        .COMPLETADO { color:#28a745; font-weight:bold; }
+        .EN-PROCESO { color:#ffc107; font-weight:bold; }
+        .PENDIENTE { color:#dc3545; font-weight:bold; }
+    </style>
+</head>
+<body>
+<div class="contenedor">
+    <h1>Flujo del Proceso Empresarial</h1>
+    <p>Empresa: <span class="dato" th:text="${empresa}">Empresa</span></p>
+    <p>Área: <span class="dato" th:text="${area}">Área</span></p>
+    <p>Proceso: <span class="dato" th:text="${proceso}">Proceso</span></p>
+
+    <table>
+        <thead>
+        <tr>
+            <th>Orden</th>
+            <th>Actividad</th>
+            <th>Responsable</th>
+            <th>Estado</th>
+            <th>Tiempo estimado</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="actividad : ${actividades}">
+            <td th:text="${actividad.orden}">1</td>
+            <td th:text="${actividad.nombre}">Actividad</td>
+            <td th:text="${actividad.responsable}">Responsable</td>
+            <td th:text="${actividad.estado}" th:class="${#strings.replace(actividad.estado,' ','-')}">Estado</td>
+            <td th:text="${actividad.tiempoEstimado}">Tiempo estimado</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

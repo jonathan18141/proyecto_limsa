@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Reporte de Asistencias - B&B LIMSA S.A.C.</title>
+    <style>
+        body { font-family: Arial; background:#f4f7fb; margin:30px; }
+        .contenedor { max-width:1100px; margin:auto; background:white; padding:25px; border-radius:12px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+        h1 { color:#1f4e78; }
+        .dato { color:#2e75b6; font-weight:bold; }
+        table { width:100%; border-collapse:collapse; margin-top: 15px; }
+        th { background:#2e75b6; color:white; padding:10px; text-align:left; }
+        td { border:1px solid #ccd6e0; padding:10px; }
+        .badge-entrada { color:#28a745; font-weight:bold; }
+        .badge-salida { color:#dc3545; font-weight:bold; }
+        .boton-volver { display:inline-block; padding:10px 15px; background:#6c757d; color:white; text-decoration:none; border-radius:6px; margin-bottom:15px; }
+    </style>
+</head>
+<body>
+<div class="contenedor">
+    <a class="boton-volver" th:href="@{/marcador}">← Volver al Marcador</a>
+    <h1>Reporte General de Asistencia</h1>
+    <p>Empresa: <span class="dato" th:text="${empresa}">Empresa</span> | Área: <span class="dato" th:text="${area}">Área</span></p>
+
+    <h3>Últimas Marcaciones en Vivo</h3>
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>DNI</th>
+            <th>Fecha</th>
+            <th>Entrada</th>
+            <th>Salida</th>
+            <th>Horas Trab.</th>
+            <th>Estado</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- Recorremos la variable correcta 'asistencias' -->
+        <tr th:each="m : ${asistencias}">
+            <td th:text="${m.id}">1</td>
+            <td th:text="${m.dni}">71234567</td>
+            <td th:text="${m.fecha}">2026-10-31</td>
+            <td th:text="${m.horaEntrada}" class="badge-entrada">08:00:00</td>
+            <td th:text="${m.horaSalida != null ? m.horaSalida : 'En turno...'}" class="badge-salida">17:00:00</td>
+            <td th:text="${m.horasTrabajadas + ' hrs'}">8.0 hrs</td>
+            <td th:text="${m.estado}">CONFORME</td>
+        </tr>
+        <tr th:if="${#lists.isEmpty(asistencias)}">
+            <td colspan="7" style="text-align:center; color:#888;">No hay marcaciones registradas hoy.</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <h3 style="margin-top:30px;">Personal Habilitado en Base de Datos</h3>
+    <table>
+        <thead>
+        <tr>
+            <th>DNI</th><th>Nombre Completo</th><th>Área / Cargo</th><th>Turno Asignado</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="e : ${empleados}">
+            <td th:text="${e.dni}">DNI</td>
+            <td th:text="${e.nombre}">Nombre</td>
+            <td th:text="${e.area}">Área</td>
+            <td th:text="${e.turnoAsignado}">Mañana</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
